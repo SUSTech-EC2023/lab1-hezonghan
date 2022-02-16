@@ -64,4 +64,4 @@ Please the figures described as follows for all the parameter combinations.
 
 **Question:** What is a "generation number" and a "fitness evaluation number"?
 
-**Question:**  Differences between  \mc{best-so-far} fitness value and the fitness value of the best individual of current population.
+**Question:**  Differences between best-so-far fitness value and the fitness value of the best individual of current population.
