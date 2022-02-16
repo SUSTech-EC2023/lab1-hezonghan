@@ -22,7 +22,10 @@ nbGen = 0; % generation counter
 nbEval = 0; % evaluation counter
 bestSoFarFit = 0; % best-so-far fitness value
 bestSoFarSolution = NaN; % best-so-far solution
-
+%recorders
+fitness_gen=[]; % record the best fitness so far
+solution_gen=[];% record the best phenotype of each generation
+fitness_pop=[];% record the best fitness in current population 
 %% Below starting your code
 
 % Initialise a population
@@ -33,16 +36,23 @@ upperBound = 31;
 lenGene = 5;
 population = randi([lowerBound,upperBound],populationSize,1);
 genotypes = dec2bin(population);
+
 % Evaluate the initial population
 %% TODO
 fitness = objective(population);
+[A,index] = sort(fitness,1,'descend');
+fitness_pop=[fitness_pop,A(1)]
 for i = 1:populationSize
     if fitness(i) > bestSoFarFit
         bestSoFarFit = fitness(i);
         bestSoFarSolution = population(i,:);
     end
 end
+
 nbEval = nbEval + populationSize;
+nbGen =  nbGen +1;
+fitness_gen=horzcat(fitness_gen, bestSoFarFit);
+solution_gen=horzcat(solution_gen, bestSoFarSolution);
 % Start the loop
 while (nbEval<T) % [QUESTION] this stopping condition is not perfect, why?
 % Reproduction (selection, crossver)
@@ -75,6 +85,8 @@ end
 genotypes = offspringGenes;
 population = bin2dec(genotypes);
 fitness = objective(population);
+[A,index] = sort(fitness,1,'descend');
+fitness_pop=[fitness_pop,A(1)]
 for i = 1:populationSize
     if fitness(i) > bestSoFarFit
         bestSoFarFit = fitness(i);
@@ -82,6 +94,21 @@ for i = 1:populationSize
     end
 end
 nbEval = nbEval + populationSize;
+nbGen = nbGen + 1;
+fitness_gen=horzcat(fitness_gen, bestSoFarFit);
+solution_gen=horzcat(solution_gen, bestSoFarSolution);
 end
 bestSoFarFit
 bestSoFarSolution
+
+figure,plot(1:nbGen,fitness_gen,'b') 
+title('Fitness\_Gen')
+
+figure,plot(1:nbGen,solution_gen,'b') 
+title('Solution\_Gen')
+
+figure,plot(1:nbGen,fitness_pop,'b') 
+title('Fitness\_Pop')
+
+
+
