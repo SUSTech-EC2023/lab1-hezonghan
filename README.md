@@ -17,7 +17,7 @@ Any programming language that you prefer, however, the sample code in this repos
 
 ### Prepare your repository
 * Each student will need to create a GitHub account and clone this repository [Lab1](https://github.com/SUSTech-EC2022). If you use other programming language, there is no need to clone the repository, you can create a new one.
-* The url of the cloned repository should be sent to me via Blackboard.
+* The url of the cloned repository should be sent to me via Blackboard or [github classroom](https://classroom.github.com/a/uy9DGWKq).
 
 ## Maximising a simple objective function in discrete domain
 This simple objective function is implemented in this repository and it is named as *objFunc*, shown as follows:
