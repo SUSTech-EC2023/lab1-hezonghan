@@ -16,7 +16,7 @@ Any programming language that you prefer, however, the sample code in this repos
 **We use use Matlab a lot in the future labs and assignments! Please learn to use Matlab.**
 
 ### Prepare your repository
-* Each student will need to create a GitHub account and clone this repository [Lab1](https://github.com/SUSTech-EC2022). If you use other programming language, there is no need to clone the repository, you can create a new one.
+* Each student will need to create a GitHub account and clone this repository [Lab1](https://github.com/SUSTech-EC2023). If you use other programming language, there is no need to clone the repository, you can create a new one.
 * The url of the cloned repository should be sent to me via Blackboard or [github classroom](https://classroom.github.com/a/uy9DGWKq).
 
 ## Maximising a simple objective function in discrete domain
