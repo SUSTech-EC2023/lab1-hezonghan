@@ -31,7 +31,7 @@ end
 
 ## Implement a simple EA
 **Exercise:** Implement the simple EA introduced in the illustrative example of Lecture 1.
-Please refer to the slides entitled *How Does a Simple EA Work* (slides 15--22) for more details.
+Please refer to the slides entitled *How Does a Simple EA Work* for more details.
 
 **Structure of this simple EA:** Highlights are given below:
 * Binary representation of individuals.
