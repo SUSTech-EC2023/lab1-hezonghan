@@ -1,0 +1,308 @@
+\documentclass[landscape,twocolumn]{ctexart}  % ctexart to enable Chinese.
+% \documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, margin=0.6in]{geometry}
+\usepackage{color}
+\usepackage[cmyk]{xcolor}
+\usepackage{graphicx,subcaption,float}
+
+\usepackage{amsfonts}  % for \mathbb
+\usepackage{amsmath}  % for aligned environment
+
+\usepackage{booktabs}  % \toprule \midrule \bottomrule
+\usepackage{makecell}  % \makecell
+\usepackage{stfloats}  % enable  h,t,b,p
+\usepackage{multirow , tabularx}
+
+\usepackage[ruled,vlined]{algorithm2e}
+
+\usepackage{diagbox}
+
+
+\title{Week 2: Operators}
+\author{...}
+
+
+
+
+\begin{document}
+
+\maketitle
+
+\section{Operators}
+
+
+\begin{table*}[hb] % h-here,t-top,b-bottom,优先级依次下降
+    \begin{center} % 居中
+        \caption{Operators}
+        \label{table:exact.obj.enabled_var_cons}
+        \resizebox{\linewidth}{!}{
+            \begin{tabular}{c|c|c|c|l|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
+
+                \toprule
+
+                    
+
+                    % \multicolumn{5}{r}{
+                    %     \multirow{2}{0.5cm}{
+                    %         % 
+                    %     }
+                    % } & 
+                    % \multicolumn{1}{r}{
+                    %     \multirow{2}{0.5cm}{
+                    %         \makecell{Which \\ dimensions \\ (bit-positions) \\ to modify on}
+                    %     }
+                    % } & 
+
+                    \multicolumn{5}{c|}{
+                        % \multirow{2}{0.5cm}{
+                        \multirow{2}{*}{
+                            \makecell{
+                                \diagbox{Single (the $j$-th) dimension value function}{Which dimensions (positions) to modify on}
+                                % haha
+                            }
+                        }
+                    } &
+
+                    &
+
+                    \makecell{all} &
+                    \makecell{per-bit \\ crossover \\ rate} & 
+                    \makecell{random $m$ \\ positions} &
+                    \makecell{$k$-points} &
+                    \makecell{} &
+                    \makecell{}
+
+                \\ % \midrule
+
+                    % &&&&& 
+                    \multicolumn{5}{c}{} &
+                    % \makecell{Name} & \makecell{Parameters} & \makecell{\#Input} & \makecell{\#Output} & \makecell{Function} & 
+
+                    &
+
+                    \makecell{All the $d$ dimensions.} & 
+                    \makecell{For each dimension (position), \\ change by independent probability $p$.} & 
+                    \makecell{Randomly select $m$ positions.} &
+                    \makecell{Cut into (k+1) segments, and \\ alternatively select positions \\ from even segments.} &
+                    \makecell{}
+
+                    
+                    
+                % \\  \midrule
+                %     \multicolumn{5}{c}{\makecell{Single-dimension value function}} & {}
+                    
+                \\  \midrule
+                    \makecell{Name} & \makecell{Parameters} & \makecell{\#Input} & \makecell{\#Output} & \makecell{Function} & {}
+
+                \\  \midrule
+
+                    \makecell{exchange \\ two values} & 
+                    \makecell{--} & 
+                    \makecell{$2$ \\ { \color{blue} $x_1^{(j)}$ , $x_2^{(j)}$ } } & 
+                    \makecell{$2$ \\ { \color{blue} $x'^{(j)}$  , $x''^{(j)}$ } } & 
+                    \makecell{$\begin{cases} x'^{(j)} = x_2^{(j)} \\ x''^{(j)} = x_1^{(j)} \end{cases}$} & 
+
+                    &
+
+                    \makecell{} &
+                    \makecell{ Uniform Crossover (for binary values) (p10) \\ Global Discrete Recombination (for real values) (p12) } &
+                    \makecell{} &
+                    \makecell{ $k$-point Crossover (for binary values) (p7-8) \\ Multi-point discrete Recombination (for real values) (p11) }
+
+
+                \\  \midrule
+
+                    \makecell{weighted \\ arithmetic \\ average} & 
+                    % \makecell{weight $\alpha$} & 
+                    \makecell{--} & 
+                    \makecell{$2$ \\ { \color{blue} $x_1^{(j)}$ , $x_2^{(j)}$ } } & 
+                    \makecell{$2$ \\ { \color{blue} $x'^{(j)}$  , $x''^{(j)}$ } } & 
+                    \makecell{
+                        $\begin{cases} x'^{(j)} = \alpha \cdot x_1^{(j)} + (1-\alpha) \cdot x_2^{(j)} \\ x''^{(j)} = (1-\alpha) \cdot x_1^{(j)} + \alpha \cdot x_2^{(j)} \end{cases}$
+                        \\ {\color{red} weight $\alpha \sim U (0,1)$}
+                    } & 
+
+                    &
+
+                    \makecell{ Arithmetic Recombination (p14-15) } &
+                    \makecell{} &
+                    \makecell{ Single Arithmetic Recombination (for $m=1$) (p18-19) } &
+                    \makecell{ Simple Arithmetic Recombination (for $k=2$) (p16-17) } 
+
+                \\  \midrule
+
+                    \makecell{heuristic \\ escape} & 
+                    % \makecell{step length $\alpha$} & 
+                    \makecell{--} & 
+                    \makecell{$2$ \\ { \color{blue} $x_1^{(j)}$ , $x_2^{(j)}$ } } & 
+                    \makecell{$1$ \\ { \color{blue} $x'^{(j)}$ } } & 
+                    \makecell{$ x'^{(j)} = x_2^{(j)} + \alpha \cdot ( x_2^{(j)} - x_1^{(j)} ) $ \\ {\color{red} escape weight $\alpha \sim U (0,1)$}} & 
+
+                    &
+
+                    \makecell{ Heuristic Recombination (p20) } &
+                    \makecell{} &
+                    \makecell{} &
+                    \makecell{} 
+
+                \\  \midrule
+
+                    \makecell{simplex} & 
+                    \makecell{--} & 
+                    \makecell{$n$ \\ { \color{blue} $x_i^{(j)} \forall i\in [1,n]$ } } & 
+                    \makecell{$1$ \\ { \color{blue} $x'^{(j)}$ } } & 
+                    \makecell{$ x'^{(j)} = \frac{1}{n-1} (\sum_{i=1}^n x_i^{(j)} - x_n^{(j)}) + ( x_1^{(j)} - x_n^{(j)} ) $} & 
+
+                    &
+
+                    \makecell{ Simplex Recombination (p20) } &
+                    \makecell{} &
+                    \makecell{} &
+                    \makecell{} 
+                    
+
+                \\  \midrule
+
+                    \makecell{geometric \\ average} & 
+                    \makecell{--} & 
+                    \makecell{$2$ \\ { \color{blue} $x_1^{(j)}$ , $x_2^{(j)}$ } } & 
+                    \makecell{$1$ \\ { \color{blue} $x'^{(j)}$ } } & 
+                    \makecell{$ x'^{(j)} = \root\of{ x_1^{(j)} \cdot x_2^{(j)} } $} & 
+
+                    &
+
+                    \makecell{ Geometric Recombination (p21) } &
+                    \makecell{} &
+                    \makecell{} &
+                    \makecell{} 
+
+                \\  \midrule
+
+                    \makecell{quadratic} & 
+                    \makecell{--} & 
+                    \makecell{$3$ \\ { \color{blue} $x_1^{(j)}$ , $x_2^{(j)}$ , $x_3^{(j)}$ } } & 
+                    \makecell{$1$ \\ { \color{blue} $x'^{(j)}$ } } & 
+                    \makecell{$ x'^{(j)} = ... $} & 
+
+                    &
+
+                    \makecell{ Quadratic Recombination (p21-22) } &
+                    \makecell{} &
+                    \makecell{} &
+                    \makecell{} 
+                    
+                \\  \midrule
+
+                \\  \midrule
+
+                    \makecell{bit flipping} & 
+                    \makecell{--} & 
+                    \makecell{$1$ \\ { \color{blue} $x_1^{(j)} \in \{0,1\}$ } } & 
+                    \makecell{$1$ \\ { \color{blue} $x'^{(j)}$ } } & 
+                    \makecell{$ x'^{(j)} = 1 - x_1^{(j)} $} & 
+
+                    &
+
+                    \makecell{} &
+                    \makecell{ Bitwise Mutation (usually $p=\frac{1}{d}$) (p27) } &
+                    \makecell{ One-bit Flipping / One-bit Mutation (for $m=1$) (p26) \\ Multi-bit Flipping (for $m>1$) (p26) } &
+                    \makecell{} 
+
+                % \\  \midrule
+
+                %     \makecell{random bit} & 
+                %     \makecell{--} & 
+                %     \makecell{$1$ \\ { \color{gray} $x_1^{(j)} \in \{0,1\}$ } } & 
+                %     \makecell{$1$ \\ { \color{blue} $x'^{(j)}$ } } & 
+                %     \makecell{$ x'^{(j)} = Rand([0,1]) $} & 
+
+                %     &
+
+                %     \makecell{} &
+                %     \makecell{} &
+                %     \makecell{} &
+                %     \makecell{} 
+
+                \\  \midrule
+
+                    \makecell{another \\ random integer} & 
+                    \makecell{image $S$} & 
+                    \makecell{$1$ \\ { \color{blue} $x_1^{(j)} \in S$ } } & 
+                    \makecell{$1$ \\ { \color{blue} $x'^{(j)}$ } } & 
+                    % \makecell{$ x'^{(j)} = Rand(S - \{x_1^{(j)}\}) $} & 
+                    \makecell{$ x'^{(j)} = X'$ \\ {\color{red} $X' \in (S - \{x_1^{(j)}\}) $}} & 
+
+                    &
+
+                    \makecell{} &
+                    \makecell{ Random Mutation (p28) } &
+                    \makecell{} &
+                    \makecell{} 
+
+                \\  \midrule
+
+                    \makecell{random real} & 
+                    \makecell{lower bound $lb_j$ \\ upper bound $ub_j$} & 
+                    \makecell{$1$ \\ { \color{gray} $x_1^{(j)} \in \mathbb{R} $ } } & 
+                    \makecell{$1$ \\ { \color{blue} $x'^{(j)}$ } } & 
+                    % \makecell{$ x'^{(j)} = Rand([lb_j , ub_j]) $} & 
+                    \makecell{$ x'^{(j)} = X'$ \\ {\color{red} $X' \sim U (lb_j , ub_j) $}} & 
+
+                    &
+
+                    \makecell{} &
+                    \makecell{ Uniform Mutation (p32) } &
+                    \makecell{} &
+                    \makecell{} 
+
+                \\  \midrule
+
+                    \makecell{Gaussian} & 
+                    \makecell{standard deviation $\sigma$ \\ lower bound $lb_j$ \\ upper bound $ub_j$} & 
+                    \makecell{$1$ \\ { \color{blue} $x_1^{(j)}$ } } & 
+                    \makecell{$1$ \\ { \color{blue} $x'^{(j)}$ } } & 
+                    \makecell{$ x'^{(j)} = curtailing(x_1^{(j)} + \Delta , lb_j , ub_j) $ \\ {\color{red} mutation step-size $\Delta \sim \mathcal{N} (0 , \sigma^2)$}} &
+
+                    &
+
+                    \makecell{Nonuniform Mutation using Gaussian (p33-35)} &
+                    \makecell{} &
+                    \makecell{} &
+                    \makecell{}
+
+                \\  \midrule
+
+                    \makecell{Cauchy} & 
+                    \makecell{scale $t$ \\ lower bound $lb_j$ \\ upper bound $ub_j$} & 
+                    \makecell{$1$ \\ { \color{blue} $x_1^{(j)}$ } } & 
+                    \makecell{$1$ \\ { \color{blue} $x'^{(j)}$ } } & 
+                    \makecell{$ x'^{(j)} = curtailing(x_1^{(j)} + \Delta , lb_j , ub_j) $ \\ {\color{red} mutation step-size $\Delta \sim \mathcal{C} (0,t)$}} &
+
+                    &
+
+                    \makecell{Nonuniform Mutation using Cauchy (p33-35)} &
+                    \makecell{} &
+                    \makecell{} &
+                    \makecell{}
+
+                % \\  \midrule
+
+                %     \makecell{} & 
+                %     \makecell{--} & 
+                %     \makecell{$1$ \\ { \color{blue} $x_1^{(j)}$ } } & 
+                %     \makecell{$1$ \\ { \color{blue} $x'^{(j)}$ } } & 
+                %     \makecell{$ x'^{(j)} =  $}
+
+
+                \\
+                \bottomrule
+
+            \end{tabular}
+        }
+    \end{center}
+\end{table*}
+
+
+\end{document}
